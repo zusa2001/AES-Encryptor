@@ -23,6 +23,8 @@ def add_entry():
     # Write the IV and ciphertext to a binary file
     with open("encrypted_data.bin", "wb") as binary_file:
         binary_file.write(iv + ciphertext)
+    with open("key.bin", "wb") as text_file:
+        text_file.write(key)
 
 def search_entry():
     print("in progress")
@@ -31,7 +33,9 @@ def list_all_entries():
     if os.path.exists("encrypted_data.bin"):
         with open("encrypted_data.bin", "rb") as file:
             content = file.read()
-            decryptorAES(content,key)
+        with open("key.bin", "rb") as file:
+            key = file.read()
+        decryptorAES(content,key)
     else:
         print("You need to create a new Entry")
 
